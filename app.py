@@ -80,7 +80,7 @@ def get_veiculos():
     try:
         response = supabase.table('veiculos').select(
             "id, placa, carro").execute()
-        return jsonify(dados)
+        return jsonify(response.data)
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
@@ -136,7 +136,7 @@ def get_historico():
             .limit(5) \
             .execute()
 
-        return jsonify(dados)
+        return jsonify(response.data)
     except Exception as e:
         print(f"Erro ao buscar histórico: {e}")
         return jsonify({"error": str(e)}), 500
