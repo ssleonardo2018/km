@@ -75,7 +75,7 @@ def salvar_veiculo():
         return jsonify({"error": "Erro no banco", "detalhes": str(e)}), 400
 
 
-@app.route('/api/veiculos')
+@app.route('/api/veiculos', methods=['GET'])
 def get_veiculos():
     try:
         response = supabase.table('veiculos').select(
@@ -125,7 +125,7 @@ def registrar_km():
         return jsonify({"error": "Erro ao processar dados", "detalhes": str(e)}), 400
 
 
-@app.route('/api/historico')
+@app.route('/api/historico', methods=['GET'])
 def get_historico():
     try:
         # Busca os registros ordenando pela data mais recente (limitado a 5)
@@ -140,8 +140,6 @@ def get_historico():
     except Exception as e:
         print(f"Erro ao buscar histórico: {e}")
         return jsonify({"error": str(e)}), 500
-
-
 @app.route('/relatorios')
 def pagina_relatorios():
     return render_template('relatorios.html')
