@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+    <title>Relatórios - KM Diário</title>
+    <!-- Biblioteca para Exportar Excel -->
+    <script src="https://cloudflare.com"></script>
+</head>
+<body>
+    <nav>
+        <h1>📊 Relatório de Atividades</h1>
+        <button onclick="window.location.href='/dashboard'">Voltar ao Painel</button>
+    </nav>
+
+    <div class="container">
+        <div class="filter-row">
+            <div class="form-group">
+                <label>Selecione o Motorista:</label>
+                <select id="select-motorista-rel">
+                    <option value="">Carregando motoristas...</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>De:</label>
+                <input type="date" id="data-inicio">
+            </div>
+            <div class="form-group">
+                <label>Até:</label>
+                <input type="date" id="data-fim">
+            </div>
+            <button class="btn-save" onclick="gerarRelatorio()">Gerar Relatório</button>
+        </div>
+
+        <!-- Botões de Exportação (aparecem após gerar) -->
+        <div id="export-buttons" style="display: none; margin-top: 15px; gap: 10px;">
+            <!--<button onclick="exportarExcel()" class="btn-export-xls">📥 Exportar Excel</button>-->
+            <button onclick="window.print()" class="btn-export-pdf">🖨️ Imprimir / PDF</button>
+        </div>
+    </div>
+
+    <!-- Cabeçalho do Relatório (Exibido após busca) -->
+    <div id="cabecalho-motorista" class="container" style="display: none;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+            <p><b>Motorista:</b> <span id="rel-nome-motorista"></span></p>
+            <p><b>Turno:</b> <span id="rel-turno-motorista"></span></p>
+            <p><b>Mês:</b> <span id="rel-mes"></span></p>
+            <p><b>Ano:</b> <span id="rel-ano"></span></p>
+        </div>
+    </div>
+
+    <div class="content">
+        <table class="report-table">
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Placa</th>
+                    <th>Inicial</th>
+                    <th>Final</th>
+                    <th>Total KM</th>
+                    <th>Observações</th>
+                </tr>
+            </thead>
+            <tbody id="tabela-corpo">
+                <!-- Preenchido via JavaScript -->
+            </tbody>
+        </table>
+    </div>
+
+    <script src="/static/script.js"></script>
+    <script>
+        // Garante que a lista de motoristas carregue assim que abrir a página
+        document.addEventListener('DOMContentLoaded', carregarMotoristasFiltro);
+    </script>
+</body>
+</html>
